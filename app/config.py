@@ -1,3 +1,5 @@
+from urllib.parse import urlparse, urlunparse
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -14,8 +16,17 @@ class Settings(BaseSettings):
     debug: bool = False
 
     # Database — async URL for app (asyncpg)
-    # Format: postgresql+asyncpg://USER:PASSWORD@HOST:PORT/DATABASE
+    # Accepts postgresql+asyncpg://, postgres://, postgresql://
     database_url: str
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def normalize_database_url(cls, v: str) -> str:
+        if not v:
+            return v
+        p = urlparse(v.strip())
+        # Always enforce postgresql+asyncpg for the FastAPI async engine
+        return urlunparse(("postgresql+asyncpg", p.netloc, p.path, "", "", ""))
 
     # Supabase Storage
     supabase_url: str = ""
@@ -58,13 +69,10 @@ class Settings(BaseSettings):
     def sync_database_url(self) -> str:
         """
         Synchronous database URL for Alembic migrations.
-        Replaces asyncpg driver with psycopg2 to avoid the MissingGreenlet error.
+        Replaces driver with psycopg2 to avoid the MissingGreenlet error.
         """
-        return self.database_url.replace(
-            "postgresql+asyncpg://", "postgresql+psycopg2://"
-        ).replace(
-            "postgresql://", "postgresql+psycopg2://"
-        )
+        p = urlparse(self.database_url)
+        return urlunparse(("postgresql+psycopg2", p.netloc, p.path, "", "", ""))
 
     @property
     def is_production(self) -> bool:
