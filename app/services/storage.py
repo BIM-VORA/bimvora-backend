@@ -13,7 +13,7 @@ async def generate_signed_url(storage_path: str, expires_in: int = 3600) -> str:
     """
     if not settings.supabase_url or not settings.supabase_service_role_key:
         logger.warning("Supabase credentials not configured — returning placeholder URL")
-        return f"https://placeholder.bimvora.com/{storage_path}"
+        return f"https://placeholder.bimvora.site/{storage_path}"
 
     from supabase import create_client, Client
     client: Client = create_client(settings.supabase_url, settings.supabase_service_role_key)

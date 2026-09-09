@@ -80,7 +80,7 @@ async def send_order_confirmation_email(order, download_tokens: list[dict]) -> N
         <tr><td style="background:#F7F9FC;padding:20px 40px;text-align:center;border-top:1px solid #DDE3EE;">
           <p style="margin:0;font-size:12px;color:#9CA3AF;">
             BIMVORA · Professional BIM Content · 
-            <a href="{frontend_url}" style="color:#0047CC;text-decoration:none;">bimvora.com</a>
+            <a href="{frontend_url}" style="color:#0047CC;text-decoration:none;">bimvora.site</a>
           </p>
         </td></tr>
 
@@ -95,6 +95,6 @@ async def send_order_confirmation_email(order, download_tokens: list[dict]) -> N
         "to": [order.customer_email],
         "subject": f"Your BIMVORA order is ready — #{order.order_number}",
         "html": html,
-        "reply_to": "support@bimvora.com",
+        "reply_to": "support@bimvora.site",
     })
     logger.info(f"Confirmation email sent to {order.customer_email}")

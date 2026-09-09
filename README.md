@@ -44,7 +44,7 @@ This prevents the `sqlalchemy.exc.MissingGreenlet` error that occurs when
 1. Create a new service → From GitHub
 2. Set build method: **Dockerfile**
 3. Set port: **8000**
-4. Set domain: **api.bimvora.com** with SSL
+4. Set domain: **api.bimvora.site** with SSL
 5. Add all environment variables from `.env.example`
 6. Set `DATABASE_URL` using EasyPanel's internal PostgreSQL hostname
 

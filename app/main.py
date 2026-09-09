@@ -55,7 +55,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="BIMVORA API",
-    description="Backend for bimvora.com — Professional Revit Families Store",
+    description="Backend for bimvora.site — Professional Revit Families Store",
     version="1.0.0",
     lifespan=lifespan,
     # Disable Swagger in production (security best practice)

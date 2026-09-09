@@ -28,10 +28,10 @@ class Settings(BaseSettings):
 
     # Email (Resend)
     resend_api_key: str = ""
-    email_from: str = "orders@bimvora.com"
+    email_from: str = "orders@bimvora.site"
 
     # Frontend (CORS + redirect URLs)
-    frontend_url: str = "https://bimvora.com"
+    frontend_url: str = "https://bimvora.site"
 
     # Internal shared secret (must match frontend API_INTERNAL_SECRET)
     internal_secret: str = "changeme"
